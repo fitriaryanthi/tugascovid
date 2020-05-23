@@ -35,95 +35,87 @@
 <body>
 
 <!-- Image and text -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand ml-5" href="/">
       <img src="https://4.bp.blogspot.com/-ELlrLdH0frM/WSz4AjqIWaI/AAAAAAAAASY/EF5ayA5zXn05TXw53cRUVTJeh6lzUJDDwCLcB/s400/Lambang%2BDaerah%2BProvinsi%2BBali%2B2.png" width="30" height="30" class="d-inline-block align-top" alt="">
-      Provinsi Bali
+      Bali
     </a>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="/data">Data</a>
+          <a class="nav-link" href="/data">Admin</a>
         </li>
       </ul>
     </div>
 </nav>
 
 <div class="container mt-4">
-    <h4 >Data Sebaran Kasus Covid-19 Sampai Dengan Tanggal {{$tanggalSekarang}} di Bali (BALI)</h4>
+    <h4 >Data Covid-19 di Bali, Update Terakhir Tanggal {{$tanggalSekarang}} </h4>
+  <hr>
   <div class="row mt-4 mb-4">
-    <div class="col-sm-3">
+    <div class="col-sm-6">
         <div class="card">
-            <div class="card-header">
-              Positif
+            <div class="card-header bg-primary text-white">
+              <center><b>Positif</b></center>
             </div>
             <div class="card-body">
-              <h5 class="card-title">Jumlah</h5>
-              <p class="card-text">{{$positif[0]->positif}} Orang</p>
+              <h5 class="card-title"><center>Jumlah : {{$positif[0]->positif}} Orang</center></h5>
             </div>
           </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
         <div class="card">
-            <div class="card-header">
-              Dalam Perawatan
+            <div class="card-header bg-warning text-white">
+              <center><b>Dalam Perawatan</b></center>
             </div>
             <div class="card-body">
-              <h5 class="card-title">Jumlah</h5>
-              <p class="card-text">{{$rawat[0]->rawat}} Orang</p>
-              
+              <h5 class="card-title"><center>Jumlah : {{$rawat[0]->rawat}} Orang</center></h5>
             </div>
           </div> 
     </div>
-    <div class="col-sm-3">
+  </div>
+  <div class="row mt-4 mb-4">
+    <div class="col-sm-6">
         <div class="card">
-            <div class="card-header">
-              Sembuh
+            <div class="card-header bg-success text-white">
+              <center><b>Sembuh</b></center>
             </div>
             <div class="card-body">
-              <h5 class="card-title">Jumlah</h5>
-              <p class="card-text">{{$sembuh[0]->sembuh}} Orang</p>
-              
+              <h5 class="card-title"><center>Jumlah : {{$sembuh[0]->sembuh}} Orang</center></h5>
             </div>
           </div>  
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
         <div class="card">
-            <div class="card-header">
-              Meninggal
+            <div class="card-header bg-danger text-white">
+              <center><b>Meninggal</b></center>
             </div>
             <div class="card-body">
-              <h5 class="card-title">Jumlah</h5>
-              <p class="card-text">{{$meninggal[0]->meninggal}} Orang</p>
+              <h5 class="card-title"><center>Jumlah : {{$meninggal[0]->meninggal}} Orang</center></h5>
             </div>
           </div>    
     </div>
   </div>
   <hr>
   <div class="row mt-4">
-      <div class="col-sm-4">
+      <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Filter Data</h5>
+              <h5 class="card-title">Peta Sebaran Covid 19 Provinsi Bali <strong>{{$tanggalSekarang}}</strong></h5>
+              <div id="map"></div>
+            </div>
+            <div class="card-body">
               <form action="/search" method="POST">
                 @csrf
                     <div class="form-group">
                       <label for="exampleFormControlInput1">Tanggal</label>
                       <input type="date" class="form-control" name="tanggal" id="tanggalSearch"  @if(isset($tanggal)) value="{{$tanggal}}" @endif>
                     </div>
-                    <button type="submit" class="btn btn-success btn-flat">Cari</button>
-        
+                    <button type="submit" class="btn btn-primary btn-block">Cari</button>
                 </div>
               </form>
-          </div>
-      </div>
-      <div class="col-sm-8">
-        <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Peta Penyebaran Covid Provinsi Bali <strong>{{$tanggalSekarang}}</strong></h5>
-              <div id="map"></div>
             </div>
-            <div class="card-footer" style="background: white">
+            <!-- <div class="card-footer" style="background: white">
               <div class="row">
                 <div class="col-6">
                   Color Start
@@ -140,11 +132,10 @@
                 </div>
       
               </div>
-            </div>
+            </div> -->
           </div>
       </div>
   </div>
-  <hr>
 </div>
 <div class="container">
     <div class="row mt-4">
@@ -153,7 +144,7 @@
                 <div class="card-body">
                 <h5 class="card-title">Data Penyebaran Tanggal {{$tanggalSekarang}}</h5>
                 <div class="table-responsive">
-                  <table id="example" class="table table-striped table-dark rounded" >
+                  <table id="example" class="table table-striped table-hover rounded" >
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -195,15 +186,15 @@
   $(document).ready(function () {
     var dataMap=null;
     var colorMap=[
-      "e5000d",
-      "e71925",
-      "ea333d",
-      "ec4c55",
-      "ef666d",
-      "f27f68",
-      "f4999e",
-      "f7b2b6",
-      "f9ccce"
+      "669900",
+      "666633",
+      "669966",
+      "66CC00",
+      "66CC33",
+      "66CC66",
+      "66FF00",
+      "66FF33",
+      "66FF66"
     ];
     var tanggal = $('#tanggalSearch').val();
     console.log(tanggal);
